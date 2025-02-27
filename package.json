@@ -3,8 +3,13 @@
   "displayName": "Auto Indent",
   "description": "自动缩进到正确位置当光标移动到空行时",
   "version": "1.0.0",
+  "publisher": "auto-indent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/auto-indent.git"
+  },
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
@@ -35,7 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
-    "@types/vscode": "^1.97.0",
+    "@types/vscode": "^1.96.0",
     "typescript": "^5.7.3"
   }
 }

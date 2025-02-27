@@ -1,0 +1,41 @@
+{
+  "name": "auto-indent",
+  "displayName": "Auto Indent",
+  "description": "自动缩进到正确位置当光标移动到空行时",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "auto-indent.enableAutoIndent",
+        "title": "启用自动缩进"
+      },
+      {
+        "command": "auto-indent.disableAutoIndent",
+        "title": "禁用自动缩进"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "@types/vscode": "^1.97.0",
+    "typescript": "^5.7.3"
+  }
+}

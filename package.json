@@ -1,18 +1,20 @@
 {
-  "name": "auto-indent",
-  "displayName": "Auto Indent",
-  "description": "自动缩进到正确位置当光标移动到空行时",
+  "name": "smart-indent",
+  "displayName": "Smart Indent",
+  "description": "自动缩进避免触发AI代码补全，光标移动到空行时自动应用正确缩进",
   "version": "1.0.0",
-  "publisher": "auto-indent",
+  "publisher": "smart-indent",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/auto-indent.git"
+    "url": "https://github.com/fmnisme/smart-indent.git"
   },
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Formatters",
+    "Programming Languages"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -21,12 +23,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "auto-indent.enableAutoIndent",
-        "title": "启用自动缩进"
+        "command": "smart-indent.enableAutoIndent",
+        "title": "启用智能缩进"
       },
       {
-        "command": "auto-indent.disableAutoIndent",
-        "title": "禁用自动缩进"
+        "command": "smart-indent.disableAutoIndent",
+        "title": "禁用智能缩进"
       }
     ]
   },

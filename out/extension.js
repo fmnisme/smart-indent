@@ -96,18 +96,18 @@ function applyAutoIndent() {
  * 当扩展被激活时调用
  */
 function activate(context) {
-    console.log('插件 "auto-indent" 已激活');
+    console.log('插件 "smart-indent" 已激活');
     // 保存当前活动的编辑器
     activeEditor = vscode.window.activeTextEditor;
     // 注册启用命令
-    const enableCommand = vscode.commands.registerCommand('auto-indent.enableAutoIndent', () => {
+    const enableCommand = vscode.commands.registerCommand('smart-indent.enableAutoIndent', () => {
         enabled = true;
-        vscode.window.showInformationMessage('自动缩进已启用');
+        vscode.window.showInformationMessage('智能缩进已启用');
     });
     // 注册禁用命令
-    const disableCommand = vscode.commands.registerCommand('auto-indent.disableAutoIndent', () => {
+    const disableCommand = vscode.commands.registerCommand('smart-indent.disableAutoIndent', () => {
         enabled = false;
-        vscode.window.showInformationMessage('自动缩进已禁用');
+        vscode.window.showInformationMessage('智能缩进已禁用');
     });
     // 监听键盘输入事件，检测回车键
     const typeListener = vscode.workspace.onDidChangeTextDocument(event => {

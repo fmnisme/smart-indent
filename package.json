@@ -2,8 +2,8 @@
   "name": "smart-indent",
   "displayName": "Smart Indent",
   "description": "自动缩进避免触发AI代码补全，光标移动到空行时自动应用正确缩进",
-  "version": "1.0.0",
-  "publisher": "smart-indent",
+  "version": "1.0.1",
+  "publisher": "fmnisme",
   "repository": {
     "type": "git",
     "url": "https://github.com/fmnisme/smart-indent.git"
@@ -25,7 +25,7 @@
   ],
   "icon": "images/icon.png",
   "galleryBanner": {
-    "color": "#C80000",
+    "color": "#0E639C",
     "theme": "dark"
   },
   "activationEvents": [

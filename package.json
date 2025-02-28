@@ -16,6 +16,18 @@
     "Formatters",
     "Programming Languages"
   ],
+  "keywords": [
+    "indent",
+    "auto indent",
+    "smart indent",
+    "AI",
+    "code completion"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onStartupFinished"
   ],

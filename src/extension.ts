@@ -12,6 +12,26 @@ let lastLineContents = new Map<number, string>();
 let enterKeyPressed = false;
 
 /**
+ * 检查当前是否处于vim编辑模式
+ * @returns 是否处于vim模式
+ */
+function isVimMode(): boolean {
+    // 检查vscodevim扩展是否激活
+    const vimExtension = vscode.extensions.getExtension('vscodevim.vim');
+    if (vimExtension && vimExtension.isActive) {
+        return true;
+    }
+
+    // 检查其他可能的vim扩展
+    const amVimExtension = vscode.extensions.getExtension('auiworks.amvim');
+    if (amVimExtension && amVimExtension.isActive) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
  * 获取适当的缩进级别
  * @param document 当前文档
  * @param lineNumber 当前行号
@@ -88,6 +108,11 @@ function applyAutoIndent() {
         return;
     }
 
+    // 如果处于vim模式，不应用自动缩进
+    if (isVimMode()) {
+        return;
+    }
+
     const document = activeEditor.document;
     const selection = activeEditor.selection;
     const currentLine = document.lineAt(selection.active.line);
@@ -134,6 +159,11 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
+        // 如果处于vim模式，不应用自动缩进
+        if (isVimMode()) {
+            return;
+        }
+
         // 检查是否有换行符的变化
         for (const change of event.contentChanges) {
             if (change.text.includes('\n') || change.text.includes('\r')) {
@@ -141,7 +171,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // 设置延时，给VSCode自动缩进一些时间生效
                 setTimeout(() => {
-                    if (activeEditor && enabled) {
+                    if (activeEditor && enabled && !isVimMode()) {
                         applyAutoIndent();
                     }
                     enterKeyPressed = false;
@@ -156,6 +186,11 @@ export function activate(context: vscode.ExtensionContext) {
     const cursorPositionListener = vscode.window.onDidChangeTextEditorSelection(event => {
         activeEditor = event.textEditor;
 
+        // 如果处于vim模式，不应用自动缩进
+        if (isVimMode()) {
+            return;
+        }
+
         // 只有在非回车键事件且光标移动到新行时，才考虑应用自动缩进
         if (!enterKeyPressed &&
             event.selections.length === 1 &&
@@ -165,7 +200,9 @@ export function activate(context: vscode.ExtensionContext) {
             // 光标移动到了新行，应用自动缩进
             // 设置短暂延时，以确保在VSCode的自动缩进之后运行
             setTimeout(() => {
-                applyAutoIndent();
+                if (!isVimMode()) {
+                    applyAutoIndent();
+                }
             }, 10); // 增加到50毫秒，与回车键事件的延时保持一致
         }
 

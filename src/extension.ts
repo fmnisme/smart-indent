@@ -108,12 +108,29 @@ function applyAutoIndent() {
         return;
     }
 
+    const document = activeEditor.document;
+    const uri = document.uri;
+
+    // 1. 基础协议检查
+    if (uri.scheme !== 'file' && uri.scheme !== 'untitled') {
+        return; // 如果不是普通文件或未保存文件，则退出
+    }
+
+    // 2. 检查是否为 Go 模块依赖或不在工作区内
+    const filePath = uri.fsPath; // 获取文件系统路径
+    const isGoModDependency = filePath.includes('/pkg/mod/') || filePath.includes('/vendor/');
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri);
+    
+    if (isGoModDependency || !workspaceFolder) {
+        // 如果路径包含 Go 模块特征 或 文件不属于任何工作区文件夹，则退出
+        return;
+    }
+
     // 如果处于vim模式，不应用自动缩进
     if (isVimMode()) {
         return;
     }
 
-    const document = activeEditor.document;
     const selection = activeEditor.selection;
     const currentLine = document.lineAt(selection.active.line);
 

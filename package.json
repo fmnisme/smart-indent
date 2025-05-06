@@ -2,7 +2,7 @@
   "name": "smart-indent",
   "displayName": "Smart Indent",
   "description": "自动缩进避免触发AI代码补全，光标移动到空行时自动应用正确缩进",
-  "version": "1.0.4",
+  "version": "1.0.15",
   "publisher": "fmnisme",
   "repository": {
     "type": "git",

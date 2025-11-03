@@ -253,13 +253,10 @@ export function activate(context: vscode.ExtensionContext) {
     const cursorPositionListener = vscode.window.onDidChangeTextEditorSelection(event => {
         activeEditor = event.textEditor;
 
-        // 如果处于 Vim 非编辑模式，不应用自动缩进
-        if (shouldDisableForVim()) {
-            return;
-        }
-
         // 只有在非回车键事件且光标移动到新行时，才考虑应用自动缩进
-        if (!enterKeyPressed &&
+        // 注意：先检查再更新 lastPosition
+        if (!shouldDisableForVim() &&  // 不在 Vim 非编辑模式下
+            !enterKeyPressed &&
             event.selections.length === 1 &&
             lastPosition &&
             event.selections[0].active.line !== lastPosition.line &&
@@ -272,7 +269,8 @@ export function activate(context: vscode.ExtensionContext) {
             }, INDENT_DELAY_AFTER_CURSOR_MOVE);
         }
 
-        // 更新光标位置
+        // ⚠️ 重要：始终更新光标位置，即使不触发自动缩进
+        // 这样在 Vim 模式切换后（如 Normal → Insert）才能正确检测光标移动
         lastPosition = event.selections[0].active;
     });
 
